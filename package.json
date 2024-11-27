@@ -37,6 +37,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.6.4",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1"
   },
   "jest": {
@@ -44,6 +45,11 @@
       "<rootDir>/jest.setup.js"
     ],
     "testEnvironment": "jsdom",
-    "testPathIgnorePatterns": ["/test_suites"]
+    "testPathIgnorePatterns": [
+      "/test_suites"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
   }
 }

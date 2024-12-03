@@ -7,7 +7,6 @@ function PlantPage({ plants, setPlants }) {
   const [filteredPlants, setFilteredPlants] = useState(plants);
 
   const updatePlantStatus = (id, status) => {
-    // Update plant's in-stock status by sending a PATCH request to the backend
     fetch(`http://localhost:6001/plants/${id}`, {
       method: "PATCH",
       headers: {
@@ -22,13 +21,22 @@ function PlantPage({ plants, setPlants }) {
             plant.id === updatedPlant.id ? updatedPlant : plant
           )
         );
+        setFilteredPlants((prevFilteredPlants) =>
+          prevFilteredPlants.map((plant) =>
+            plant.id === updatedPlant.id ? updatedPlant : plant
+          )
+        );
       })
       .catch((error) => console.error("Error updating plant status:", error));
   };
 
   return (
     <main>
-      <NewPlantForm setPlants={setPlants} />
+      <NewPlantForm
+        onAddPlant={(newPlant) =>
+          setPlants((prevPlants) => [...prevPlants, newPlant])
+        }
+      />
       <Search plants={plants} setFilteredPlants={setFilteredPlants} />
       <PlantList plants={filteredPlants} updatePlantStatus={updatePlantStatus} />
     </main>

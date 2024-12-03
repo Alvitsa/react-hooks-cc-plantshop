@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function PlantCard({ plant, updatePlantStatus }) {
-  const [inStock, setInStock] = useState(true);
+  const [inStock, setInStock] = useState(plant.inStock || true);
 
   const handleSoldOut = () => {
     setInStock(false);
@@ -12,13 +12,15 @@ function PlantCard({ plant, updatePlantStatus }) {
     <li className="card" data-testid="plant-item">
       <img src={plant.image} alt={plant.name} />
       <h4>{plant.name}</h4>
-      <p>Price: ${plant.price.toFixed(2)}</p>
+      <p>Price: {plant.price}</p>
       {inStock ? (
         <button onClick={handleSoldOut} className="primary">
-          Mark as Sold Out
+          In Stock
         </button>
       ) : (
-        <button disabled>Sold Out</button>
+        <button disabled className="secondary">
+          sold out
+        </button>
       )}
     </li>
   );

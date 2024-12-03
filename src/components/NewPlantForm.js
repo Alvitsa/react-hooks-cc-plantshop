@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function NewPlantForm({ onAddPlant }) {
-  const [name, setName] = useState('');
-  const [image, setImage] = useState('');
-  const [price, setPrice] = useState('');
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
     const newPlant = { name, image, price };
 
-    fetch('http://localhost:6001/plants', {
-      method: 'POST',
+    fetch("http://localhost:6001/plants", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "Application/JSON", // Updated casing
       },
       body: JSON.stringify(newPlant),
     })
       .then((response) => response.json())
       .then((data) => {
         onAddPlant(data);
-        setName('');
-        setImage('');
-        setPrice('');
-      });
+        setName("");
+        setImage("");
+        setPrice("");
+      })
+      .catch((error) => console.error("Error adding plant:", error)); // Error handling
   }
 
   return (
